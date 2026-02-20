@@ -1,6 +1,6 @@
 import { Nunito_Sans } from 'next/font/google';
 import { siteConfig } from '@/data/config/site.settings';
-import { ThemeProviders } from './theme-providers';
+import { ThemeProviders } from '@/components/shared/ThemeProviders';
 import { Metadata } from 'next';
 
 import { colors } from '@/data/config/colors.js';
