@@ -1,0 +1,537 @@
+{
+  "meta": {
+    "product": "Overtime by LOOPPP",
+    "goal": "Apply Aires dashboard UI language (clean SaaS, minimal, yellow accent, segmented KPIs, calm charts) to Overtime workflows (planning, analytics, projects, freelancers).",
+    "languageRules": {
+      "appLanguage": "French",
+      "allowedEnglishTerms": ["SETBUILDER", "FREELANCE", "ON-SET", "STRIKE"],
+      "phaseLabels": ["ATELIER", "ON-SET", "STRIKE"]
+    },
+    "tone": ["Ultra clair", "Ultra lisible", "Ultra pro", "Minimal", "Margin control tool"],
+    "density": "medium",
+    "navigationModel": "Sidebar-first, page-per-route: Planning / Analytics / Projets / Freelances",
+    "noLongDashRule": true
+  },
+
+  "layout": {
+    "pageFrame": {
+      "background": {
+        "light": "warm gray 50-100",
+        "dark": "near-black with slightly lighter panels"
+      },
+      "outerPadding": {
+        "base": 16,
+        "sm": 20,
+        "md": 24,
+        "lg": 24,
+        "xl": 28
+      },
+      "maxWidthBehavior": "fluid; panels have sensible max widths; charts scale; tables scroll on small screens"
+    },
+
+    "regions": [
+      {
+        "name": "Left Sidebar",
+        "type": "persistent navigation",
+        "width": { "collapsed": 56, "expanded": 260 },
+        "behavior": {
+          "base_sm": "off-canvas overlay with scrim + close button",
+          "md": "toggleable (remember state)",
+          "lg_up": "sticky expanded, full height"
+        }
+      },
+      {
+        "name": "Top Header Row",
+        "type": "page header",
+        "content": ["Page title", "Global period filter", "Primary action (contextual)", "Optional quick search"],
+        "behavior": "sticky within main content if needed"
+      },
+      {
+        "name": "Main Content",
+        "type": "scroll region",
+        "structureByPage": {
+          "Planning": ["Toolbar", "Planner grid", "Right contextual drawer (optional)"],
+          "Analytics": ["Project selector", "KPI cards", "Charts", "Tables"],
+          "Projets": ["Toolbar", "Projects table/grid", "Project quick create"],
+          "Freelances": ["Toolbar", "Freelance list with chips", "Freelance profile panel"]
+        }
+      }
+    ],
+
+    "responsiveBreakpointsTailwindDefaults": {
+      "base": {
+        "sidebar": "off-canvas",
+        "header": "title + primary action (icon) + filters in a second row",
+        "cards": "stack 1-col",
+        "tables": "horizontal scroll",
+        "planningGrid": "single-day or 3-day condensed view with horizontal scroll"
+      },
+      "sm": {
+        "cards": "2-col where possible",
+        "analytics": "charts stack; tables still scroll"
+      },
+      "md": {
+        "cards": "3-col row",
+        "planningGrid": "7-day grid fits more comfortably; sticky day headers",
+        "drawers": "right drawer can appear"
+      },
+      "lg": {
+        "sidebar": "persistent",
+        "cards": "3 KPI cards + 1 summary column on right",
+        "analytics": "2-column layout for charts and tables when relevant",
+        "planningGrid": "full week view with clear columns"
+      },
+      "xl": {
+        "whitespace": "more breathing room",
+        "chartHeight": "slightly taller"
+      },
+      "2xl": {
+        "layout": "same as xl; preserve calm density"
+      }
+    }
+  },
+
+  "colorSystem": {
+    "palettes": {
+      "primary": {
+        "name": "Yellow accent (Aires-like)",
+        "tailwindLike": "yellow",
+        "usage": [
+          "Active nav indicator and highlights",
+          "Key KPI accents",
+          "Warnings for overtime over threshold",
+          "Status chips for attention (not for all statuses)"
+        ],
+        "approxValues": { "500": "#F2D84B", "600": "#E6C83E" }
+      },
+      "secondary": {
+        "name": "Neutral charcoal (data emphasis)",
+        "tailwindLike": "slate/neutral",
+        "usage": [
+          "Primary text in light mode",
+          "Chart bars",
+          "Strong dividers and icons"
+        ],
+        "approxValues": { "800": "#2B2B2B", "900": "#151515" }
+      }
+    },
+    "grays": {
+      "lightMode": {
+        "bg": "#F6F5F3",
+        "panel": "#FFFFFF",
+        "mutedText": "#6B7280",
+        "border": "#E5E7EB",
+        "grid": "#E5E7EB",
+        "subtleFill": "#F3F4F6",
+        "hover": "#F9FAFB"
+      },
+      "darkMode": {
+        "bg": "#0B0F14",
+        "panel": "#0F172A",
+        "mutedText": "#9CA3AF",
+        "border": "#1F2937",
+        "grid": "#1F2937",
+        "subtleFill": "#111827",
+        "hover": "#0B1220"
+      }
+    },
+    "semanticAccents": {
+      "success": "#16A34A",
+      "danger": "#DC2626",
+      "info": "#2563EB",
+      "overtimeWarning": "primary.500",
+      "overtimeDanger": "danger"
+    },
+    "phaseColors": {
+      "ATELIER": "secondary.900 (neutral, not colorful)",
+      "ON-SET": "secondary.800 (neutral)",
+      "STRIKE": "secondary.700 (neutral)",
+      "note": "Do not color-code phases with bright colors. Use neutral shades + labels. Yellow is reserved for emphasis and exceptions."
+    },
+    "shadows": {
+      "light": ["soft elevation for active nav item", "soft tooltip shadow", "very subtle card shadow"],
+      "dark": ["minimal, rely on borders and panel contrast"]
+    }
+  },
+
+  "typography": {
+    "fontMood": "Neutral, modern, system-like",
+    "rules": [
+      "Numbers and totals are the strongest typographic element",
+      "Labels are uppercase, small, widely tracked",
+      "French UI copy everywhere except allowed terms"
+    ],
+    "scale": {
+      "pageTitle": { "base": 22, "md": 26, "lg": 28 },
+      "sectionTitle": { "base": 16, "md": 18, "weight": 600 },
+      "kpiValue": { "base": 20, "md": 22, "lg": 24, "weight": 600, "lineHeight": 1.1 },
+      "kpiLabel": { "base": 11, "transform": "uppercase", "tracking": "wide" },
+      "navItem": { "base": 13 },
+      "tableText": { "base": 13 },
+      "smallMeta": { "base": 12 }
+    }
+  },
+
+  "components": {
+    "surfaces": {
+      "card": {
+        "radius": 10,
+        "bg": { "light": "panel", "dark": "panel" },
+        "border": { "light": "1px border", "dark": "1px border" },
+        "padding": 18,
+        "shadow": { "light": "subtle", "dark": "none" }
+      },
+      "panel": {
+        "radius": 10,
+        "padding": 18,
+        "headerDivider": true
+      }
+    },
+
+    "sidebar": {
+      "branding": {
+        "appName": "Overtime",
+        "subLabel": "by LOOPPP",
+        "brandTile": {
+          "content": "O",
+          "bg": "primary.500",
+          "text": "secondary.900",
+          "size": 36,
+          "radius": 8
+        }
+      },
+
+      "navItems": [
+        { "label": "Planning", "icon": "calendar-grid", "route": "/planning" },
+        { "label": "Analytics", "icon": "chart-bar", "route": "/analytics" },
+        { "label": "Projets", "icon": "folder", "route": "/projets" },
+        { "label": "Freelances", "icon": "users", "route": "/freelances" }
+      ],
+
+      "navItemStyle": {
+        "height": 40,
+        "radius": 8,
+        "iconSize": 16,
+        "gap": 10,
+        "active": {
+          "light": "white pill + subtle shadow",
+          "dark": "dark pill",
+          "accent": "small left rule or dot in primary"
+        }
+      }
+    },
+
+    "header": {
+      "globalControls": {
+        "periodPicker": {
+          "label": "Période",
+          "default": "Ce mois",
+          "variants": ["7 jours", "30 jours", "Ce mois", "Mois dernier", "Custom"]
+        },
+        "projectSelector": {
+          "label": "Projet",
+          "behavior": "Only visible on Analytics and optionally Planning"
+        },
+        "search": {
+          "placeholder": "Rechercher un projet ou un freelance",
+          "visibility": "md+"
+        }
+      },
+
+      "contextPrimaryAction": {
+        "Planning": { "label": "Nouveau projet", "icon": "plus" },
+        "Projets": { "label": "Nouveau projet", "icon": "plus" },
+        "Freelances": { "label": "Ajouter un FREELANCE", "icon": "plus" },
+        "Analytics": { "label": "Exporter", "icon": "download" }
+      }
+    },
+
+    "kpiSystem": {
+      "kpiCardsRowAiresStyle": {
+        "slots": [
+          {
+            "label": "JOURS DEVISÉS",
+            "value": "ex: 18j",
+            "helper": "Sur la période sélectionnée",
+            "icon": "clipboard"
+          },
+          {
+            "label": "JOURS PLANIFIÉS",
+            "value": "ex: 16j",
+            "helper": "ATELIER + ON-SET + STRIKE",
+            "icon": "calendar"
+          },
+          {
+            "label": "HEURES SUP",
+            "value": "ex: 12h",
+            "helper": "Total sur la période",
+            "icon": "clock"
+          }
+        ],
+        "rightSummaryCard": {
+          "stackedSections": [
+            { "label": "ÉCART", "value": "ex: -2j", "toneRule": "negative is danger, positive is success" },
+            { "label": "COÛT ESTIMÉ HS", "value": "ex: 480€", "toneRule": "yellow when elevated" },
+            { "label": "TAUX OCCUPATION", "value": "ex: 82%", "toneRule": "neutral" }
+          ],
+          "bottomBars": {
+            "legend": [
+              { "label": "Planifié", "swatch": "secondary.900" },
+              { "label": "Devisé", "swatch": "primary.500" }
+            ],
+            "bars": [
+              { "key": "planned", "fill": "secondary.900", "height": 18, "radius": 4 },
+              { "key": "quoted", "fill": "primary.500", "height": 18, "radius": 4 }
+            ]
+          }
+        }
+      }
+    },
+
+    "analyticsPanels": {
+      "phaseBreakdownPanel": {
+        "title": "Répartition par phase",
+        "content": "Segmented bar with 3 segments: ATELIER / ON-SET / STRIKE, neutral shades, with values above",
+        "statsRow": [
+          { "value": "ex: 8j", "label": "ATELIER" },
+          { "value": "ex: 6j", "label": "ON-SET" },
+          { "value": "ex: 2j", "label": "STRIKE" }
+        ],
+        "segmentedBar": {
+          "height": 28,
+          "radius": 6,
+          "segments": [
+            { "key": "ATELIER", "color": "secondary.900" },
+            { "key": "ON-SET", "color": "secondary.800" },
+            { "key": "STRIKE", "color": "secondary.700" }
+          ],
+          "accentRule": "Use primary yellow only for the currently selected phase filter or when a phase exceeds quoted allocation"
+        }
+      },
+
+      "overtimeByDatePanel": {
+        "title": "Heures sup par jour",
+        "chart": {
+          "type": "bar chart",
+          "bars": {
+            "normal": "secondary.900",
+            "overThreshold": "primary.500",
+            "critical": "danger"
+          },
+          "tooltip": "Shows date, project, freelancer, phase, hours"
+        },
+        "filters": ["Projet", "FREELANCE", "Phase", "Seuil HS"]
+      },
+
+      "invoiceVerificationTable": {
+        "title": "Vérification factures",
+        "tableColumns": [
+          "FREELANCE",
+          "Période",
+          "ATELIER (j)",
+          "ON-SET (j)",
+          "STRIKE (j)",
+          "HS (h)",
+          "Total (j)",
+          "Écart",
+          "Détails"
+        ],
+        "rowActions": ["Voir détails", "Exporter ligne"],
+        "visualAid": "Écart column uses small colored dot: green ok, yellow small mismatch, red mismatch"
+      }
+    },
+
+    "planningUI": {
+      "plannerHeader": {
+        "title": "Planning",
+        "subControls": [
+          "Week picker",
+          "Project quick create",
+          "Filters: Phase, Client, Statut"
+        ]
+      },
+      "plannerGrid": {
+        "structure": "Columns = days, rows = staffing slots",
+        "dayColumn": {
+          "dayHeader": "Date + day name, sticky",
+          "addButton": "Small plus button inside day header (not floating)",
+          "emptyState": "Light dashed placeholder lines"
+        },
+        "projectCard": {
+          "shape": "more square, Aires-like",
+          "radius": 10,
+          "padding": 12,
+          "topLine": "Project name (strong)",
+          "secondLine": "Client (muted)",
+          "metaRow": ["Phase chip", "Staffing count", "Status dot"],
+          "accent": "Yellow used only for selected card, conflict states, or drag target highlight",
+          "interaction": ["drag between days", "expand for quick edit", "context menu"]
+        }
+      },
+      "conflictStates": {
+        "overStaffed": "yellow outline + icon",
+        "underStaffed": "neutral outline + small warning indicator",
+        "overtimeRisk": "yellow dot indicator"
+      }
+    },
+
+    "projectsUI": {
+      "projectsList": {
+        "viewModes": ["Table default", "Compact cards optional"],
+        "toolbar": ["Search", "Client filter", "Status filter", "New project"],
+        "tableColumns": [
+          "Projet",
+          "Client",
+          "Dates",
+          "Statut",
+          "Devis (j)",
+          "Planifié (j)",
+          "HS (h)",
+          "Marge (est.)"
+        ],
+        "row": {
+          "primary": "Projet",
+          "secondary": "Client",
+          "rightAlignedNumbers": true
+        }
+      },
+
+      "projectCreateFlow": {
+        "context": "Must be doable from Planning quickly",
+        "fields": [
+          "Nom du projet",
+          "Client (select + create if missing)",
+          "Staffing prévu (nombre)",
+          "Phase (ATELIER / ON-SET / STRIKE)",
+          "Dates (start/end or single day for planning card)",
+          "Statut"
+        ],
+        "ux": "Modal or right drawer; minimal steps; confirm creates both project and planning card when invoked from Planning"
+      }
+    },
+
+    "freelancesUI": {
+      "freelanceList": {
+        "toolbar": ["Search", "Role filter", "Labels filter", "Ajouter un FREELANCE"],
+        "listItem": {
+          "left": "Avatar initials circle",
+          "main": "Name",
+          "sub": "Role (this is the visible label in the pool and must match profile primary role)",
+          "right": "Small colored dot(s) as quick identifiers (restored feature)",
+          "style": "Aires-like row with hover surface"
+        }
+      },
+      "roleManagement": {
+        "requirement": "Primary role list is editable and reusable across app",
+        "ui": "Role management modal accessible from Freelances page settings"
+      },
+      "freelanceProfile": {
+        "layout": "Right panel or dedicated page",
+        "sections": [
+          "Infos",
+          "Rôle principal",
+          "Notes internes (neutral, not rating-based)",
+          "Historique (projects worked)",
+          "HS summary by project"
+        ]
+      }
+    }
+  },
+
+  "interactionStates": {
+    "buttons": {
+      "primary": {
+        "bg": { "light": "secondary.900", "dark": "gray 50" },
+        "text": { "light": "white", "dark": "gray 900" },
+        "hover": "slight opacity shift"
+      },
+      "secondary": {
+        "bg": "transparent",
+        "border": "1px border",
+        "hover": "subtleFill"
+      }
+    },
+    "chips": {
+      "default": "neutral pill with border",
+      "selected": "primary outline or fill (very subtle)"
+    },
+    "focus": {
+      "style": "thin ring in primary yellow, subtle"
+    },
+    "tables": {
+      "rowHover": "light: gray50, dark: hover",
+      "stickyHeader": true
+    }
+  },
+
+  "spacingAndRadii": {
+    "radii": {
+      "card": 10,
+      "navItem": 8,
+      "chip": 999,
+      "segmentedBar": 6,
+      "tooltip": 8
+    },
+    "commonGaps": {
+      "betweenCards": 18,
+      "betweenPanels": 22,
+      "withinCard": 10,
+      "toolbarGap": 10
+    },
+    "dividers": { "thickness": 1 }
+  },
+
+  "darkMode": {
+    "principles": [
+      "Panels slightly lighter than background",
+      "Borders replace shadows",
+      "Chart bars invert to light neutral for readability",
+      "Yellow accent stays the same but used sparingly"
+    ],
+    "chartAdjustments": {
+      "gridLines": "dark.border",
+      "labels": "dark.mutedText",
+      "bars": "gray 200 (default) with yellow for highlights"
+    }
+  },
+
+  "pageBlueprints": {
+    "Planning": {
+      "header": ["Planning", "Week picker", "Filters", "Nouveau projet"],
+      "body": ["Planner grid", "Optional right drawer for quick edit"]
+    },
+    "Analytics": {
+      "header": ["Analytics", "Période", "Projet selector", "Exporter"],
+      "body": [
+        "KPI row (quoted vs planned vs overtime)",
+        "Répartition par phase panel",
+        "Heures sup par jour panel",
+        "Vérification factures table"
+      ]
+    },
+    "Projets": {
+      "header": ["Projets", "Search", "Filters", "Nouveau projet"],
+      "body": ["Projects table with key metrics and quick open"]
+    },
+    "Freelances": {
+      "header": ["Freelances", "Search", "Role filter", "Ajouter un FREELANCE"],
+      "body": ["Freelance list + profile panel or dedicated page"]
+    }
+  },
+
+  "copyExamplesFR": {
+    "kpiLabels": [
+      "JOURS DEVISÉS",
+      "JOURS PLANIFIÉS",
+      "HEURES SUP",
+      "ÉCART",
+      "COÛT ESTIMÉ HS",
+      "TAUX OCCUPATION"
+    ],
+    "filters": ["Période", "Projet", "Client", "Phase", "Statut"],
+    "emptyStates": {
+      "planning": "Aucun projet ce jour. Cliquez sur + pour en créer un.",
+      "analytics": "Sélectionnez un projet pour afficher les indicateurs."
+    }
+  }
+}
